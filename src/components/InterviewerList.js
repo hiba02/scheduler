@@ -1,7 +1,7 @@
 import React from "react";
 
 // import "components/DayListItem.scss";
-import "./InterviewList.scss";
+import "./InterviewerList.scss";
 import InterviewerListItem from "./InterviewerListItem";
 
 
