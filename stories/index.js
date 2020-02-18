@@ -94,12 +94,12 @@ storiesOf("InterviewerListItem", module)
       selected
     />
   ))
-  .add("Clickable", () => (
+  .add("Clickable", () => (  //Taken from Listing Interviewers II
     <InterviewerListItem
       id={interviewer.id}
       name={interviewer.name}
       avatar={interviewer.avatar}
-      setInterviewer={action("setInterviewer")}
+      onChange={event => action("setInterviewer")(interviewer.id)}
     />
   ));
   

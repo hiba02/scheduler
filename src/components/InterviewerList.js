@@ -5,21 +5,22 @@ import "./InterviewerList.scss";
 import InterviewerListItem from "./InterviewerListItem";
 
 
-
+//Taken from Listing Interviewers II
 export default function InterviewerList(props) {
-  const _InterviewerList = props.interviewers.map(interviewer => {
+  const interviewers = props.interviewers.map(interviewer => {
     return (
-    <InterviewerListItem  
-    id={interviewer.id}
-    name={interviewer.name} 
-    avatar={interviewer.avatar}
-    selected='setInterviewer'
-    />
+      <InterviewerListItem
+        key={interviewer.id}
+        name={interviewer.name}
+        avatar={interviewer.avatar}
+        selected={interviewer.id === props.value}  //InterviewerList props to value (currently interviewer) 
+        onChange={event => props.setInterviewer(interviewer.id)} //onChange (currently setInterviewer).
+      />
     );
   });
 
   return (<section className="interviewers">
-<h4 className="interviewers__header text--light">{_InterviewerList}</h4>
+<h4 className="interviewers__header text--light">{interviewers}</h4>
   <ul className="interviewers__list"></ul>
   </section>);
 }

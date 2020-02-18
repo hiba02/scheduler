@@ -3,17 +3,19 @@ import "./InterviewerListItem.scss";
 import classnames from 'classnames';
 
 export default function InterviewerListItem(props){
-  const interviewsClass = classnames("interviewers__item", {
+  const interviewerClass = classnames("interviewers__item", {
     "interviewers__item--selected": props.selected
   });
+
+  //Taken from Listing Interviewers II
   return (
-    <li className={interviewsClass}>
+    <li className={interviewerClass} onClick={props.setInterviewer}>
       <img
-        className={interviewsClass}
+        className="interviewers__item-image"
         src={props.avatar}
         alt={props.name}
       />
-      {props.name}
+      {props.selected && props.name}
     </li>
   );
 }
