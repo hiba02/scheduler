@@ -13,14 +13,14 @@ export default function InterviewerList(props) {
         key={interviewer.id}
         name={interviewer.name}
         avatar={interviewer.avatar}
-        selected={interviewer.id === props.value}  //InterviewerList props to value (currently interviewer) 
-        onChange={event => props.setInterviewer(interviewer.id)} //onChange (currently setInterviewer).
+        selected={interviewer.id === props.interviewer}  //InterviewerList props to value (currently interviewer) 
+        setInterviewer={event => props.setInterviewer(interviewer.id)} //onChange (currently setInterviewer).
       />
     );
   });
 
   return (<section className="interviewers">
-  <h4 className="interviewers__header text--light">{interviewers}</h4>
-  <ul className="interviewers__list"></ul>
+  <h4 className="interviewers__header text--light">interviewers</h4>
+  <ul className="interviewers__list">{interviewers}</ul>
   </section>);
-}
+} 

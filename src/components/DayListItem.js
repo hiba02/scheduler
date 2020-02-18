@@ -13,8 +13,8 @@ export default function DayListItem(props) {
       return "no spots remaining";
     } else if (originalFormat === 1) {
       return "1 spot remaining";
-    } else if (originalFormat === 2) {
-      return "2 spots remaining"
+    } else if (originalFormat >= 2) {
+      return `${originalFormat} spots remaining`
     }
     
   }
