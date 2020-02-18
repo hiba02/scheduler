@@ -127,6 +127,3 @@ storiesOf("InterviewerListItem", module)
         setInterviewer={action("setInterviewer")}
       />
     ));
-
-
-    
