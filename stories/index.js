@@ -10,6 +10,15 @@ import DayListItem from "components/DayListItem";
 import DayList from "components/DayList";
 import InterviewerListItem from "components/InterviewerListItem";
 import InterviewerList from "components/InterviewerList";
+// ???????????????????????????????????????
+// import "components/Appoinment/index.js"; 
+import Header from "components/Appointment/Header";
+import Empty from "components/Appointment/Empty";
+import Show from "components/Appointment/Show";
+import Confirm from "components/Appointment/Confirm";
+import Status from "components/Appointment/Status";
+import Error from "components/Appointment/Error";
+
 
 storiesOf("Button", module)
   .addParameters({
@@ -112,6 +121,7 @@ storiesOf("InterviewerListItem", module)
     { id: 5, name: "Sven Jones", avatar: "https://i.imgur.com/twYrpay.jpg" }
   ];
   
+
   storiesOf("InterviewerList", module)
     .addParameters({
       backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
@@ -129,3 +139,70 @@ storiesOf("InterviewerListItem", module)
         setInterviewer={action("setInterviewer")}
       />
     ));
+
+
+
+  storiesOf("Appointment", module)
+    .addParameters({
+      backgrounds: [{ name: "white", value: "#fff", default: true }]
+    })
+    .add("Appointment", () => <Appointment />)
+    .add("Appointment with Time", () => <Appointment time="12pm" />)
+    .add("Header", () => <Header time="12pm" />)
+
+
+  storiesOf("Empty", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Empty", () => <Empty onAdd={action("onAdd")} />)
+
+
+  storiesOf("Show", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Show", () => (
+    <Show
+    student="Lydia Miller-Jones"
+    interviewer={interviewer.name}    //?????????????
+    onEdit={action("onEdit")}
+    onDelete={action("onDelete")}
+    />
+  ));
+
+  storiesOf("Confirm", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Confirm", () => (
+    <Confirm
+    message="Lydia Miller-Jones"
+    onConfirm=""   //?????????????
+    onCancel=""  //?????????????
+    
+    />
+  ));
+
+
+  storiesOf("Status", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Status", () => (
+    <Status
+    message="Deleting"    
+    />
+  ));
+
+
+  storiesOf("Error", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Error", () => (
+    <Error
+    message="Could not delete appointment."    
+    onClose={action("onError")}
+    />
+  ));
