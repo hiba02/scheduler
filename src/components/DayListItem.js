@@ -3,6 +3,7 @@ import "./DayListItem.scss";
 import classnames from 'classnames';
 
 export default function DayListItem(props) {
+  // console.log('DayListItem', props);
   const dayClass = classnames("day-list__item", 
     {"day-list__item--selected": props.selected},
     {"day-list__item--full": props.spots === 0}
@@ -23,7 +24,7 @@ export default function DayListItem(props) {
   const setDay = function(day) {
     return day;
   }
-
+  // TOFIX: onClick={() => setDay(props.setDay)
   return (
     <li onClick={() => setDay(props.setDay)}>
       <h2 className={dayClass}>{props.name}</h2>
