@@ -20,6 +20,6 @@ import Show from "./Show";
 
 export default function Appointment() {
   return (
-    <article className="appointment">HHHHHHHEERE</article>
+    <article className="appointment"></article>
   )
 }
