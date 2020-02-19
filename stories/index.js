@@ -250,7 +250,17 @@ storiesOf("InterviewerListItem", module)
   .add("Header", () => <Header time="12pm" />)
   .add("Appointment Empty", () => (
     <Fragment>
-      <Appointment id={1} time="12pm" />
+      <Appointment interviewer={interviewer} id={1} time="12pm" />
+      <Appointment interviewer={interviewer} id="last" time="1pm" />
+    </Fragment>
+  ))
+  .add("Appointment Booked", () => (
+    <Fragment>
+      <Appointment
+        id={1}
+        time="12pm"
+        interview={{ student: "Lydia Miller-Jones", interviewer }}
+      />
       <Appointment id="last" time="1pm" />
     </Fragment>
   ))

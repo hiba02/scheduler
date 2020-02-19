@@ -18,8 +18,17 @@ import Show from "./Show";
 //   .add("Appointment", () => <Appointment />)
 //   .add("Appointment with Time", () => <Appointment time="12pm" />);
 
-export default function Appointment() {
+export default function Appointment(props) {
+  console.log('Appointment: ',props)
   return (
-    <article className="appointment"></article>
+    <article className="appointment">
+      <Header 
+        time={props.time}
+      />
+      { props.interview ? <Show 
+        interviewer={props.interview.inteviewer}
+        student={props.interview.student}
+      /> : <Empty /> }
+    </article>
   )
 }
