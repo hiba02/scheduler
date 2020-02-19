@@ -20,6 +20,7 @@ import Confirm from "components/Appointment/Confirm";
 import Status from "components/Appointment/Status";
 import Error from "components/Appointment/Error";
 import Form from "components/Appointment/Form";
+import React, { Fragment } from 'react'
 
 storiesOf('Appointment', module)
 .add('Appointment', () => <Appointment />)
@@ -150,13 +151,7 @@ storiesOf("InterviewerListItem", module)
 
 
 
-  storiesOf("Appointment", module)
-    .addParameters({
-      backgrounds: [{ name: "white", value: "#fff", default: true }]
-    })
-    .add("Appointment", () => <Appointment />)
-    .add("Appointment with Time", () => <Appointment time="12pm" />)
-    .add("Header", () => <Header time="12pm" />)
+
 
 
   storiesOf("Empty", module)
@@ -220,12 +215,13 @@ storiesOf("InterviewerListItem", module)
   .addParameters({
     backgrounds: [{ name: "white", value: "#fff", default: true }]
   })
-  .add("Form", () => (
-    <Form
-    message="Could not delete appointment."    
-    onClose={action("onError")}
-    />
-  ))
+  // .add("Form", () => (
+  //   <Form
+  //   name={interviewer.name}   
+  //   interviewer={interviewer.id}
+  //   interviewers={interviewers} 
+  //   />
+  // ))
   .add("Edit", () => (
     <Form
     message="francis" 
@@ -233,7 +229,22 @@ storiesOf("InterviewerListItem", module)
     interviewer={interviewer.id} 
     onSave={action("onSave")}
     onCancel={action("onCancel")}
-
+    setInterviewer={action("setInterviewer")}
     />
   ))
-  .add("Create")
+  .add("Create", () => (
+    <Form 
+    interviewers={interviewers}  
+    onSave={action("onSave")}
+    onCancel={action("onCancel")}
+    setInterviewer={action("setInterviewer")}
+    />
+  ))
+
+  storiesOf("Appointment", module)
+  .addParameters({
+    backgrounds: [{ name: "white", value: "#fff", default: true }]
+  })
+  .add("Appointment", () => <Appointment />)
+  .add("Appointment with Time", () => <Appointment time="12pm" />)
+  .add("Header", () => <Header time="12pm" />)
