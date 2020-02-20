@@ -4,7 +4,7 @@ import DayList from "./DayList";
 // import  from "react";
 import Appointment from "./Appointment/index";
 import Axios from "axios";
-import { getAppointmentsForDay } from "../helpers/selectors";
+import { getAppointmentsForDay, getInterview } from "../helpers/selectors";
 
 // const appointments = [
 //   {
@@ -44,32 +44,23 @@ import { getAppointmentsForDay } from "../helpers/selectors";
 // ];
 
 export default function Application(props) {
-  // const [day, setDay] = useState("Monday");
-  // const [days, setDays] = useState([]);
- 
+
   const [state, setState] = useState({
     day: "Monday",
     days: [],
-    appointments: {}
+    appointments: {},
+    interviewers: {}
   });
-  console.log('state',state);
+  // console.log('state',state);
   //state {day: "Monday", days: Array(0), appointments: {…}}
   const setDay = day => setState({ ...state, day });
-  const setDays = days => setState(prev => ({ ...prev, days }));
-  const setAppointments = appointments => setState(prev => ({ ...prev, appointments }))
-  
-  
-  // not working!
-  // const appointments = state.appointments;
-  const appointments = getAppointmentsForDay(state, state.day);
-  
-  console.log('appointments', appointments);
-  // console.log('setDay', setDay);
-  // const setDays = days => setState({...state, days});
-  // setState(prev => ({ ...prev, days }));  //?? 'days' is not defined TOFIX 
-  
+  // const setDays = days => setState(prev => ({ ...prev, days }));
+  // const setAppointments = appointments => setState(prev => ({ ...prev, appointments }))
 
-  // console.log('state, setState', state, setState)
+  const appointments = getAppointmentsForDay(state, state.day);
+  // console.log('appointments', appointments); 
+  // console.log('state.interviewers', state.interviewers);
+
   const listOfAppointments = appointments.map(appointment => <Appointment 
     key={appointment.id} 
     id={appointment.id} 
@@ -81,17 +72,36 @@ export default function Application(props) {
   useEffect(() => {
     Promise.all([
       Axios.get(`http://localhost:8001/api/days`),
-      Axios.get(`http://localhost:8001/api/appointments`)
+      Axios.get(`http://localhost:8001/api/appointments`),
+      Axios.get(`http://localhost:8001/api/interviewers`)
     ])
     .then((response) => {
       // console.log(response)
       // setDays(response.data);
-      const [days, appointments] = response;
-      console.log(days.data, appointments.data);
+      const [days, appointments, interviewers] = response;
+      console.log('response', response);
+      // console.log(days.data, appointments.data);
       //??????????????????????????????????????????????????????//
-      setState(prev => ({ ...state, days: days.data, appointments:appointments.data}));
+      setState(prev => ({ ...state, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
     });
   },[]);  
+
+
+  // const appointments = getAppointmentsForDay(state, day);
+
+  const schedule = appointments.map((appointment) => {
+    const interview = getInterview(state, appointment.interview);
+
+    return (
+      <Appointment
+        key={appointment.id}
+        id={appointment.id}
+        time={appointment.time}
+        interview={interview}
+      />
+    );
+  });
+
 
 
   return (
