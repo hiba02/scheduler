@@ -11,7 +11,7 @@ import Show from "./Show";
 
 
 export default function Appointment(props) {
-  console.log('Appointment: ',props)
+  // console.log('Appointment: ',props)
   return (
     <article className="appointment">
       <Header 
