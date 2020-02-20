@@ -2,7 +2,7 @@
 
 function getAppointmentsForDay (state, day) {
   const filteredDay = state.days.find(x => x.name === day);
-  console.log(filteredDay)
+  console.log("filteredDay",filteredDay)
   if (!filteredDay) {
     return [];
   }
@@ -11,6 +11,7 @@ function getAppointmentsForDay (state, day) {
   for (let id of appointmentsOfTheDay) {
     resultArray.push(state.appointments[id]);
   }
+  console.log("getappointmentsforday",resultArray)
   return resultArray;
 
 }

@@ -4,26 +4,26 @@ import DayList from "./DayList";
 // import  from "react";
 import Appointment from "./Appointment/index";
 import Axios from "axios";
+import { getAppointmentsForDay } from "../helpers/selectors";
 
-
-const appointments = [
-  {
-    id: 1,
-    time: "12pm",
-  },
-  {
-    id: 2,
-    time: "1pm",
-    interview: {
-      student: "Lydia Miller-Jones",
-      interviewer: {
-        id: 1,
-        name: "Sylvia Palmer",
-        avatar: "https://i.imgur.com/LpaY82x.png",
-      }
-    }
-  }
-];
+// const appointments = [
+//   {
+//     id: 1,
+//     time: "12pm",
+//   },
+//   {
+//     id: 2,
+//     time: "1pm",
+//     interview: {
+//       student: "Lydia Miller-Jones",
+//       interviewer: {
+//         id: 1,
+//         name: "Sylvia Palmer",
+//         avatar: "https://i.imgur.com/LpaY82x.png",
+//       }
+//     }
+//   }
+// ];
 
 // const days = [
 //   {
@@ -52,10 +52,23 @@ export default function Application(props) {
     days: [],
     appointments: {}
   });
-
+  console.log('state',state);
+  //state {day: "Monday", days: Array(0), appointments: {…}}
   const setDay = day => setState({ ...state, day });
-  const setDays = days => setState({...state, days});
-  // setState(prev => ({ ...prev, days }));
+  const setDays = days => setState(prev => ({ ...prev, days }));
+  const setAppointments = appointments => setState(prev => ({ ...prev, appointments }))
+  
+  
+  // not working!
+  // const appointments = state.appointments;
+  const appointments = getAppointmentsForDay(state, state.day);
+  
+  console.log('appointments', appointments);
+  // console.log('setDay', setDay);
+  // const setDays = days => setState({...state, days});
+  // setState(prev => ({ ...prev, days }));  //?? 'days' is not defined TOFIX 
+  
+
   // console.log('state, setState', state, setState)
   const listOfAppointments = appointments.map(appointment => <Appointment 
     key={appointment.id} 
@@ -66,12 +79,17 @@ export default function Application(props) {
     
   // W07D2: Requesting the Days  
   useEffect(() => {
-
-    Axios.get(`http://localhost:8001/api/days`)
+    Promise.all([
+      Axios.get(`http://localhost:8001/api/days`),
+      Axios.get(`http://localhost:8001/api/appointments`)
+    ])
     .then((response) => {
-      // console.log(response.data)
-      setDays(response.data);
-      
+      // console.log(response)
+      // setDays(response.data);
+      const [days, appointments] = response;
+      console.log(days.data, appointments.data);
+      //??????????????????????????????????????????????????????//
+      setState(prev => ({ ...state, days: days.data, appointments:appointments.data}));
     });
   },[]);  
 
