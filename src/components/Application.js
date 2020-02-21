@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./Application.scss";
 import DayList from "./DayList";
-// import  from "react";
 import Appointment from "./Appointment/index";
 import Axios from "axios";
-import { getAppointmentsForDay, getInterview } from "../helpers/selectors";
+import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
+
+
+
 
 // const appointments = [
 //   {
@@ -58,9 +60,11 @@ export default function Application(props) {
   // const setAppointments = appointments => setState(prev => ({ ...prev, appointments }))
 
   const appointments = getAppointmentsForDay(state, state.day);
-  // console.log('appointments', appointments); 
+  const interviewers = getInterviewersForDay(state, state.day)
+  console.log('appointments', appointments); 
   // console.log('state.interviewers', state.interviewers);
-
+  console.log('interviewers', interviewers); 
+  // console.log('state.interviewers', state.interviewers);
   const listOfAppointments = appointments.map(appointment => <Appointment 
     key={appointment.id} 
     id={appointment.id} 
@@ -94,6 +98,7 @@ export default function Application(props) {
 
     return (
       <Appointment
+        interviewers={interviewers}
         key={appointment.id}
         id={appointment.id}
         time={appointment.time}
@@ -128,7 +133,7 @@ export default function Application(props) {
 
       </section>
       <section className="schedule">
-        {listOfAppointments}
+        {schedule}
         {/* Replace this with the schedule elements durint the "The Scheduler" activity. */}
       </section>
     </main>

@@ -6,7 +6,7 @@ import InterviewerList from "components/InterviewerList"
 // import { interviewer } from "../../../stories/index.js";
 
 export default function Form(props) {
-  // console.log(props);
+  console.log('inside Form', props);
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
 
@@ -35,7 +35,7 @@ export default function Form(props) {
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
-          <Button danger onClick={reset}>Cancel</Button>
+          <Button danger onClick={props.onCancel}>Cancel</Button>
           <Button confirm onClick={(event) => setName(props.interviewer)}>Save</Button>
         </section>
       </section>

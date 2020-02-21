@@ -2,33 +2,21 @@ import { useState } from 'react';
 
 export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
-  const [history, setHistory] = useState([initial]);
+  const [history, setHistory] = useState( [initial] );
 
 
   const transition = function(newMode, replace = false) {
+ 
+    if (replace === true) {
+      setMode(newMode);
+    
+    } else {
+      history.push(newMode);
+      setHistory(history);
+      setMode(newMode);
+    }
 
-
-
-
-      
-      
-      // setMode(newMode);
-      
-       
-      // replace ?  setMode(history[history.length - 2]): setMode(newMode) 
-      if (replace === true) {
-        setMode(newMode);
-      
-      } else {
-        // setMode(history[history.length - 1])
-        history.push(newMode);
-        setHistory(history);
-        setMode(newMode);
-      }
-
-      console.log('newMode', newMode);
-    // console.log('transition: ', history);
-
+    // console.log('newMode', newMode);
   };
 
 
@@ -39,7 +27,7 @@ export default function useVisualMode(initial) {
       
       history.pop();
       setHistory(history)
-      console.log('history', history);
+      // console.log('history', history);
       setMode(history[history.length - 1]);
       // console.log('back: ', old);
     }
