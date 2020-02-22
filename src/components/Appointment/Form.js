@@ -26,6 +26,7 @@ export default function Form(props) {
             onChange={(event) => setName(event.target.value)}
             placeholder="Student Name"
             onSubmit={event => event.preventDefault()}
+            // onSave={}
             /*
               This must be a controlled component
             */

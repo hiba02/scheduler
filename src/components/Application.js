@@ -56,15 +56,19 @@ export default function Application(props) {
   // console.log('state',state);
   //state {day: "Monday", days: Array(0), appointments: {…}}
   const setDay = day => setState({ ...state, day });
-  // const setDays = days => setState(prev => ({ ...prev, days }));
-  // const setAppointments = appointments => setState(prev => ({ ...prev, appointments }))
 
   const appointments = getAppointmentsForDay(state, state.day);
   const interviewers = getInterviewersForDay(state, state.day)
-  console.log('appointments', appointments); 
-  // console.log('state.interviewers', state.interviewers);
-  console.log('interviewers', interviewers); 
-  // console.log('state.interviewers', state.interviewers);
+
+
+  //W07D3: Creating Appointments
+  function bookInterview(id, interview) {
+    console.log(id, interview);
+  }
+
+
+
+
   const listOfAppointments = appointments.map(appointment => <Appointment 
     key={appointment.id} 
     id={appointment.id} 
@@ -98,6 +102,7 @@ export default function Application(props) {
 
     return (
       <Appointment
+        bookInterview={bookInterview}
         interviewers={interviewers}
         key={appointment.id}
         id={appointment.id}

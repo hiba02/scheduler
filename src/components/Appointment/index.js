@@ -18,11 +18,21 @@ const CREATE="CREATE"
 
 export default function Appointment(props) {
   // console.log('Appointment: ',props)
-    const { mode, transition, back } = useVisualMode(
-      props.interview ? SHOW : EMPTY
-    );
-    console.log('mode', mode);
-    console.log('props', props);
+  const { mode, transition, back } = useVisualMode(
+    props.interview ? SHOW : EMPTY
+  );
+  console.log('mode', mode);
+  console.log('props', props);
+  console.log('props.bookInterview', props.bookInterview);  
+  console.log('props.onSave', props.onSave); 
+  //W07D3: Creating Appointments
+  function save(name, interviewer) {
+    const interview = {
+      student: name,
+      interviewer
+    };
+    props.bookInterview(props.interviewer.id, interview)
+  }  
 
   return (
     <article className="appointment">
