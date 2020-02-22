@@ -6,11 +6,11 @@ import InterviewerList from "components/InterviewerList"
 // import { interviewer } from "../../../stories/index.js";
 
 export default function Form(props) {
-  console.log('inside Form', props);
+  // console.log('inside Form', props);
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-
-
+  // console.log('inside From componet name, interviewer:', name, interviewer);
+  // console.log('props.onSave', props.onSave); 
   function reset() {
     setName("");
     setInterviewer(null);
@@ -26,18 +26,22 @@ export default function Form(props) {
             onChange={(event) => setName(event.target.value)}
             placeholder="Student Name"
             onSubmit={event => event.preventDefault()}
-            // onSave={}
+
+
+            // onSave={()=>{props.onSave(name, interviewer)}}
+
+
             /*
               This must be a controlled component
             */
           />
         </form>
-        <InterviewerList interviewers={props.interviewers} interviewer={interviewer} setInterviewer={props.setInterviewer} />
+        <InterviewerList interviewers={props.interviewers} interviewer={interviewer} setInterviewer={setInterviewer} />
       </section>
       <section className="appointment__card-right">
         <section className="appointment__actions">
           <Button danger onClick={props.onCancel}>Cancel</Button>
-          <Button confirm onClick={(event) => setName(props.interviewer)}>Save</Button>
+          <Button confirm onClick={(event) => props.onSave(name, interviewer)}>Save</Button>
         </section>
       </section>
     </main>

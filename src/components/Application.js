@@ -87,10 +87,10 @@ export default function Application(props) {
       // console.log(response)
       // setDays(response.data);
       const [days, appointments, interviewers] = response;
-      console.log('response', response);
+      // console.log('response', response);
       // console.log(days.data, appointments.data);
       //??????????????????????????????????????????????????????//
-      setState(prev => ({ ...state, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
+      setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
     });
   },[]);  
 

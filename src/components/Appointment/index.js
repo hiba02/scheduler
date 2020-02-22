@@ -21,17 +21,20 @@ export default function Appointment(props) {
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-  console.log('mode', mode);
-  console.log('props', props);
-  console.log('props.bookInterview', props.bookInterview);  
-  console.log('props.onSave', props.onSave); 
+  // console.log('mode', mode);
+  // console.log('props', props);
+  // console.log('props.bookInterview, props.interviewer.id', props.bookInterview);  
+
+  
+  
   //W07D3: Creating Appointments
   function save(name, interviewer) {
+    console.log(name, interviewer)
     const interview = {
       student: name,
       interviewer
     };
-    props.bookInterview(props.interviewer.id, interview)
+    props.bookInterview(props.id, interview)
   }  
 
   return (
@@ -51,11 +54,11 @@ export default function Appointment(props) {
       
       {mode === SHOW && (
         <Show
-        interviewer={props.interview.inteviewer}
+        interviewer={props.interview.interviewer}
         student={props.interview.student}
         />
         )}
-      {mode === CREATE && <Form interviewers={props.interviewers} onCancel={()=> back()}/> }
+      {mode === CREATE && <Form onSave={save} interviewers={props.interviewers} onCancel={()=> back()}/> }
     </article>
   )
 }   

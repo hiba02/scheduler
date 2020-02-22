@@ -43,19 +43,20 @@ export function getInterview(state, interview) {
 
 
 export function getInterviewersForDay(state, day) {
-  console.log('getInterviewersForDay', state);
+  // console.log('getInterviewersForDay', state);
   
   const filteredDay = state.days.find(x => x.name === day);
   // console.log("filteredDay",filteredDay)
   if (!filteredDay) {
     return [];
   }
-  const appointmentsOfTheDay = filteredDay.appointments;
+
+  const interviewersForDay = filteredDay.interviewers;
   let resultArray = [];
-  for (let id of appointmentsOfTheDay) {
-    resultArray.push(state.appointments[id]);
+  for (let id of interviewersForDay) {
+    resultArray.push(state.interviewers[id]);
   }
-  // console.log("getappointmentsforday",resultArray)
+  // console.log("getInterviewersForDay",resultArray)
   return resultArray;
 
 }
