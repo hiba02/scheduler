@@ -29,11 +29,12 @@ export default function Appointment(props) {
   
   //W07D3: Creating Appointments
   function save(name, interviewer) {
-    console.log(name, interviewer)
+    console.log("inside save", name, interviewer)
     const interview = {
       student: name,
       interviewer
     };
+    
     props.bookInterview(props.id, interview)
   }  
 

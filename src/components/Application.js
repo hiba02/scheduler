@@ -58,6 +58,7 @@ export default function Application(props) {
   const setDay = day => setState({ ...state, day });
 
   const appointments = getAppointmentsForDay(state, state.day);
+  console.log("Appoint apppint", appointments);
   const interviewers = getInterviewersForDay(state, state.day)
 
 
