@@ -13,7 +13,8 @@ import Form from "./Form"
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
-const CREATE="CREATE"
+const CREATE="CREATE";
+
 
 
 export default function Appointment(props) {
@@ -30,12 +31,14 @@ export default function Appointment(props) {
   //W07D3: Creating Appointments
   function save(name, interviewer) {
     console.log("inside save", name, interviewer)
+    
     const interview = {
       student: name,
       interviewer
     };
-    
+
     props.bookInterview(props.id, interview)
+    transition(SHOW);
   }  
 
   return (

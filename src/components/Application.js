@@ -58,15 +58,33 @@ export default function Application(props) {
   const setDay = day => setState({ ...state, day });
 
   const appointments = getAppointmentsForDay(state, state.day);
-  console.log("Appoint apppint", appointments);
+  // console.log("appointments", appointments);
+
+
   const interviewers = getInterviewersForDay(state, state.day)
 
 
   //W07D3: Creating Appointments
   function bookInterview(id, interview) {
     console.log(id, interview);
+    const appointment = {
+      ...state.appointments[id],
+      interview: { ...interview }
+    };
+    const appointments = {
+      ...state.appointments,
+      [id]: appointment
+    };
+    setState({
+      ...state,
+      appointments
+    });
+    // console.log("bookinterview appointment", appointment);
+    // console.log("bookinterview appointments", appointments);
   }
 
+
+  
 
 
 
@@ -92,6 +110,7 @@ export default function Application(props) {
       // console.log(days.data, appointments.data);
       //??????????????????????????????????????????????????????//
       setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
+
     });
   },[]);  
 
