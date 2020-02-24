@@ -13,12 +13,16 @@ import Form from "./Form"
 
 const EMPTY = "EMPTY";
 const SHOW = "SHOW";
-const CREATE="CREATE";
-
+const CREATE = "CREATE";
+const SAVING = "SAVING";
+const DELETE = "DELETE";
 
 
 export default function Appointment(props) {
-  // console.log('Appointment: ',props)
+  // console.log('Appointment: ',props.interview);
+  //props.interview: {student: "Yuko Smith", interviewer: {…}}
+  
+  //W07D3: Using our Custom Hook
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
@@ -37,6 +41,10 @@ export default function Appointment(props) {
       interviewer
     };
 
+
+    transition(SAVING);
+    
+    
     props.bookInterview(props.id, interview)
     transition(SHOW);
   }  
@@ -60,9 +68,12 @@ export default function Appointment(props) {
         <Show
         interviewer={props.interview.interviewer}
         student={props.interview.student}
+        onDelete={() => transition(EMPTY)}
         />
         )}
       {mode === CREATE && <Form onSave={save} interviewers={props.interviewers} onCancel={()=> back()}/> }
+      {mode === SAVING && <Show />}
+      {/* {mode === DELETE && <Empty />} */}
     </article>
   )
 }   

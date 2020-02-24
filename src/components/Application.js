@@ -59,9 +59,23 @@ export default function Application(props) {
 
   const appointments = getAppointmentsForDay(state, state.day);
   // console.log("appointments", appointments);
-
+  // 0: {id: 1, time: "12pm", interview: null}
+  // 1: {id: 2, time: "1pm", interview: null}
+  // 2: {id: 3, time: "2pm", interview: null}
+  // 3: {id: 4, time: "3pm", interview: null}
+  // 4:
+  // id: 5
+  // interview: {student: "Archie Cohen", interviewer: 7}
+  // time: "4pm"
 
   const interviewers = getInterviewersForDay(state, state.day)
+  // console.log("interviewrs", interviewers);
+  // 0: {id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg"}
+  // 1: {id: 7, name: "Alec Quon", avatar: "https://i.imgur.com/3tVgsra.jpg"}
+  // 2: {id: 8, name: "Viktor Jain", avatar: "https://i.imgur.com/iHq8K8Z.jpg"}
+  // 3: {id: 9, name: "Lindsay Chu", avatar: "https://i.imgur.com/nPywAp1.jpg"}
+  // 4: {id: 10, name: "Samantha Stanic", avatar: "https://i.imgur.com/okB9WKC.jpg"}
+
 
 
   //W07D3: Creating Appointments
@@ -71,20 +85,33 @@ export default function Application(props) {
       ...state.appointments[id],
       interview: { ...interview }
     };
+    // console.log('bookInterview appointment', appointment);
+    
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
+    // console.log('bookInterview appointments', appointments);
     setState({
       ...state,
       appointments
     });
     // console.log("bookinterview appointment", appointment);
     // console.log("bookinterview appointments", appointments);
+    
+    
+    //axios.put(url[, data[, config]]) //interview -> type: should be object
+    Axios.put(`/api/appointments/${id}`, {interview})
+      .then((response)=>{
+        console.log('response, ', response);
+      })
+
   }
 
 
-  
+  function cancelInterview () {
+    
+  }
 
 
 
@@ -98,9 +125,9 @@ export default function Application(props) {
   // W07D2: Requesting the Days  
   useEffect(() => {
     Promise.all([
-      Axios.get(`http://localhost:8001/api/days`),
-      Axios.get(`http://localhost:8001/api/appointments`),
-      Axios.get(`http://localhost:8001/api/interviewers`)
+      Axios.get(`/api/days`),
+      Axios.get(`/api/appointments`),
+      Axios.get(`/api/interviewers`)
     ])
     .then((response) => {
       // console.log(response)
