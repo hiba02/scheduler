@@ -108,9 +108,9 @@ export default function Application(props) {
 
   }
 
-
+  // use the appointment id to find the right appointment slot and set it's interview data to null.
   function cancelInterview () {
-    
+
   }
 
 
@@ -145,7 +145,8 @@ export default function Application(props) {
   // const appointments = getAppointmentsForDay(state, day);
 
   const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.interview);
+    const interview = getInterview(state, appointment.id);
+    console.log('yoiooooo', appointment, interview)
 
     return (
       <Appointment

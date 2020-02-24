@@ -16,26 +16,41 @@ export function getAppointmentsForDay(state, day) {
 
 }
 
-export function getInterview(state, interview) {
-  let obj = {};
+export function getInterview(state, appointmentId) {
+  let newAppointment = {...state.appointments[appointmentId]};
+  console.log('hellooooooo', newAppointment)
   // console.log(state.appointments);
   // console.log('state.appointments.interview',state.appointments["3"].interview);
-  if (interview==null){
+  if (!newAppointment.interview){
     return null;
   }
-  for (let id in state.appointments){
-    if (state.appointments[id].interview) {
-      // console.log(state.appointments[id].interview.student);
-      obj.student=state.appointments[id].interview.student;
-      // obj.interviewer=state.interviewers
-    }
 
+  console.log(newAppointment)
+  const interviewerId = newAppointment.interview.interviewer
+  newAppointment.interview.interviewer = state.interviewers[interviewerId]
+
+  if(interviewerId){
+
+    return newAppointment.interview
   }
-  for (let number in state.interviewers) {
-    obj.interviewer = state.interviewers[number];
+  else{
+    return undefined
   }
 
-  return obj;
+
+  // for (let id in state.appointments){
+  //   if (state.appointments[id].interview) {
+  //     // console.log(state.appointments[id].interview.student);
+  //     newAppointment.student=state.appointments[id].interview.student;
+  //     // newAppointment.interviewer=state.interviewers
+  //   }
+
+  // }
+
+  // for (let number in state.interviewers) {
+  //   newAppointment.interviewer = state.interviewers[number];
+  // }
+
 }
 
 // module.exports = { getAppointmentsForDay, getInterview } 
