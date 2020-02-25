@@ -80,18 +80,28 @@ export default function Application(props) {
 
   //W07D3: Creating Appointments
   function bookInterview(id, interview) {
-    console.log(interview)
+    console.log(interview.interviewer)
     // console.log(id, interview);
+
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
     };
-    // console.log('bookInterview appointment', appointment);
-    
     const appointments = {
       ...state.appointments,
       [id]: appointment
     };
+    // const appointment = {
+    //   ...state.appointments[id],
+    //   interview: {...interview}
+    // };
+
+    console.log('bookInterview appointment', appointment);
+    
+    // const appointments = {
+    //   ...state.appointments,
+    //   [id]: appointment
+    // };
     // console.log('bookInterview appointments', appointments);
     setState({
       ...state,
@@ -167,14 +177,14 @@ export default function Application(props) {
 
     return (
       <Appointment
-      interviewers={interviewers}
       key={appointment.id}
       id={appointment.id}
       time={appointment.time}
+      interviewers={interviewers}
       interview={interview}
       bookInterview={bookInterview}
       cancelInterview={cancelInterview}
-      
+
       />
     );
   });
