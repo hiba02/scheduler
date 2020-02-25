@@ -12,7 +12,7 @@ export default function useVisualMode(initial) {
     
     } else {
       history.push(newMode);
-      setHistory(history);
+      setHistory(prev => ([...prev, mode]));
       setMode(newMode);
     }
 
@@ -26,7 +26,7 @@ export default function useVisualMode(initial) {
     if (history.length > 1) {
       
       history.pop();
-      setHistory(history)
+      setHistory(prev => ([...prev, mode]))
       // console.log('history', history);
       setMode(history[history.length - 1]);
       // console.log('back: ', old);

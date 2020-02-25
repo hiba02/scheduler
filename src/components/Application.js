@@ -115,7 +115,13 @@ export default function Application(props) {
     Axios.put(`/api/appointments/${id}`, {interview})
       .then((response)=>{
         console.log('response, ', response);
+      }).catch((error)=>{
+        console.log(error);
       })
+
+      // ??????????????????????????//
+      // transition to them when axios rejects the Promise in our save and destroy functions.
+
 
   }
 
@@ -137,6 +143,13 @@ export default function Application(props) {
     .then((response)=>{
       console.log('response, ', response);
     })
+    .catch((error) => {
+      console.log(error);
+    })
+
+        // ??????????????????????????//
+    // transition to them when axios rejects the Promise in our save and destroy functions.
+
   }
 
 
