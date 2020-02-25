@@ -21,7 +21,7 @@ export default function Form(props) {
         <form autoComplete="off">
           <input
             className="appointment__create-input text--semi-bold"
-            name={name}
+            value={name}
             type="text"
             onChange={(event) => setName(event.target.value)}
             placeholder="Student Name"

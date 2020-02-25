@@ -21,6 +21,7 @@ const EDIT = "EDIT";
 
 export default function Appointment(props) {
   console.log('Appointment props', props);
+  // console.log('props.interview.interviewer',props.interview.interviewer);
   
   // console.log('Appointment: ',props.interview);
   //props.interview: {student: "Yuko Smith", interviewer: {…}}
@@ -96,7 +97,7 @@ export default function Appointment(props) {
                                     onCancelDelete={()=> back()}
                                                           />}
 
-      {mode === EDIT && <Form onSave={save} interviewers={props.interviewers} onCancel={()=> back()}/> }
+      {mode === EDIT && <Form onSave={save} interviewer={props.interview.interviewer} name={props.interview.student} interviewers={props.interviewers} onCancel={()=> back()}/> }
 
     </article>
   )
