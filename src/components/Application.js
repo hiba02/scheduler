@@ -112,12 +112,15 @@ export default function Application(props) {
     
     
     //axios.put(url[, data[, config]]) //interview -> type: should be object
-    Axios.put(`/api/appointments/${id}`, {interview})
+    //Need to return entire Axio 
+    return Axios.put(`/api/appointments/${id}`, {interview})
       .then((response)=>{
         console.log('response, ', response);
-      }).catch((error)=>{
-        console.log(error);
+        // return response;
       })
+      // .catch((error)=>{
+      //   console.log(error);
+      // })
 
       // ??????????????????????????//
       // transition to them when axios rejects the Promise in our save and destroy functions.
@@ -139,13 +142,14 @@ export default function Application(props) {
     // appointForDelete.interview = null;
 
     //axios.put(url[, data[, config]]) //interview -> type: should be object
-    Axios.delete(`/api/appointments/${id}`, { interview: null })
+    return Axios.delete(`/api/appointments/${id}`, { interview: null })
     .then((response)=>{
       console.log('response, ', response);
     })
-    .catch((error) => {
-      console.log(error);
-    })
+    // .catch((error) => {
+    //   console.log(error);
+    // }
+    // )
 
         // ??????????????????????????//
     // transition to them when axios rejects the Promise in our save and destroy functions.

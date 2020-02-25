@@ -4,6 +4,7 @@ export default function useVisualMode(initial) {
   const [mode, setMode] = useState(initial);
   const [history, setHistory] = useState( [initial] );
 
+  console.log('history', history);
 
   const transition = function(newMode, replace = false) {
  
@@ -11,12 +12,12 @@ export default function useVisualMode(initial) {
       setMode(newMode);
     
     } else {
-      history.push(newMode);
-      setHistory(prev => ([...prev, mode]));
+      // history.push(newMode);
+      setHistory(prev => ([...prev, newMode]));
       setMode(newMode);
     }
 
-    // console.log('newMode', newMode);
+    console.log('newMode', newMode);
   };
 
 
@@ -25,10 +26,10 @@ export default function useVisualMode(initial) {
     
     if (history.length > 1) {
       
-      history.pop();
-      setHistory(prev => ([...prev, mode]))
+      // history.pop();
+      setHistory(prev => prev.slice(0, -1))
       // console.log('history', history);
-      setMode(history[history.length - 1]);
+      setMode(history[history.length - 2]);
       // console.log('back: ', old);
     }
   }; 
