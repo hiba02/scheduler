@@ -19,6 +19,8 @@ const SAVING = "SAVING";
 
 
 export default function Appointment(props) {
+  console.log('Appointment props', props);
+  
   // console.log('Appointment: ',props.interview);
   //props.interview: {student: "Yuko Smith", interviewer: {…}}
   
@@ -48,6 +50,10 @@ export default function Appointment(props) {
   }  
 
 
+  function deleteInterview (id) {
+    // console.log("inside deleteInterview", name, interviewer)
+    props.cancelInterview(id)
+  }
 
 
   return (
@@ -65,12 +71,17 @@ export default function Appointment(props) {
       {/* {mode === EMPTY && <Empty onAdd={props.onAdd}/>} */}
       {mode === EMPTY && <Empty onAdd={() => transition(CREATE)}/>}
       
+
+      {/* if props interview exist, show them */}
       {mode === SHOW && (
+         props.interview ?
         <Show
+
         interviewer={props.interview.interviewer}
         student={props.interview.student}
-        onDelete={() => transition(EMPTY)}
-        />
+        onDelete={() => {transition(EMPTY)
+                          deleteInterview(props.id)}}
+        /> :  <Empty /> 
         )}
       {mode === CREATE && <Form onSave={save} interviewers={props.interviewers} onCancel={()=> back()}/> }
       {mode === SAVING && <Empty />}

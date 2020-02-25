@@ -80,7 +80,8 @@ export default function Application(props) {
 
   //W07D3: Creating Appointments
   function bookInterview(id, interview) {
-    console.log(id, interview);
+    console.log(interview)
+    // console.log(id, interview);
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -109,8 +110,23 @@ export default function Application(props) {
   }
 
   // use the appointment id to find the right appointment slot and set it's interview data to null.
-  function cancelInterview () {
+  // console.log("aaaaaaaaaa", appointments);
+  function cancelInterview (id) {
+  //   if (appointments.interviewers.id === id) {
+  //     // appointments
+  //   }
+  //   console.log('cancelInterview',id);
+    // console.log('cancelInterview, ',id);
+    // console.log('cancelInterview ', appointments);
+    // const appointForDelete = appointments.find(apt => apt.id === id);
+    // console.log('appointForDelete', appointForDelete);
+    // appointForDelete.interview = null;
 
+    //axios.put(url[, data[, config]]) //interview -> type: should be object
+    Axios.delete(`/api/appointments/${id}`, { interview: null })
+    .then((response)=>{
+      console.log('response, ', response);
+    })
   }
 
 
@@ -146,16 +162,19 @@ export default function Application(props) {
 
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.id);
-    console.log('yoiooooo', appointment, interview)
+    // console.log('yoiooooo', appointment, interview)
+    // console.log('yoiooooo', interview)
 
     return (
       <Appointment
-        bookInterview={bookInterview}
-        interviewers={interviewers}
-        key={appointment.id}
-        id={appointment.id}
-        time={appointment.time}
-        interview={interview}
+      interviewers={interviewers}
+      key={appointment.id}
+      id={appointment.id}
+      time={appointment.time}
+      interview={interview}
+      bookInterview={bookInterview}
+      cancelInterview={cancelInterview}
+      
       />
     );
   });
