@@ -18,9 +18,47 @@ export function getAppointmentsForDay(state, day) {
 }
 //????????????????????????????????????????????????????????????
 //Thanks for Francis 
-export function getInterview(state, appointmentId) {
-  let newAppointment = {...state.appointments[appointmentId]};
-  console.log('hellooooooo newAppointment', newAppointment)
+export function getInterview(state, interviewObject) {
+  if(interviewObject === null){
+    return null
+  }
+  const newInterview = {student: interviewObject.student}
+  const interviewerId = interviewObject.interviewer
+
+  newInterview.interviewer = state.interviewers[interviewerId]
+  return newInterview
+
+}
+
+
+  // what u want to return, example:
+  // (state, interview = {  
+//   "student": "Lydia Miller-Jones",
+//   "interviewer": 1 })
+//  =>
+  // {  
+//   "student": "Lydia Miller-Jones",
+//   "interviewer": {  
+//     "id": 1,
+//     "name": "Sylvia Palmer",
+//     "avatar": "https://i.imgur.com/LpaY82x.png"
+//   }
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   //   {id: 1, time: "12pm", interview: {…}}
         // id: 1
         // interview: {student: "Yoon", interviewer: {…}}
@@ -32,27 +70,27 @@ export function getInterview(state, appointmentId) {
         // ......
 
 
-  // console.log(state.appointments);
-  // console.log('state.appointments.interview',state.appointments["3"].interview);
-  if (!newAppointment.interview){
-    return null;
-  }
-  const interviewerId = newAppointment.interview.interviewer
-  // console.log('newAppointment.interview.interviewer',newAppointment.interview.interviewer);
-  // console.log('interviewerId', interviewerId); //3, 5, 5, 7
-  newAppointment.interview.interviewer = state.interviewers[interviewerId]
+  // // console.log(state.appointments);
+  // // console.log('state.appointments.interview',state.appointments["3"].interview);
+  // if (!newAppointment.interview){
+  //   return null;
+  // }
+  // const interviewerId = newAppointment.interview.interviewer
+  // // console.log('newAppointment.interview.interviewer',newAppointment.interview.interviewer);
+  // // console.log('interviewerId', interviewerId); //3, 5, 5, 7
+  // newAppointment.interview.interviewer = state.interviewers[interviewerId]
 
-  if(interviewerId){
-    // console.log('inside if',newAppointment.interview)
-    // {student: "Yoon", interviewer: {…}}interviewer: undefinedstudent: "Yoon"__proto__: Object
-    // {student: "Archie Cohen", interviewer: {…}}
-    // {student: "CHicken", interviewer: {…}}
-    // only student name who match with interviewer
-    return newAppointment.interview
-  }
-  else{
-    return undefined
-  }
+  // if(interviewerId){
+  //   // console.log('inside if',newAppointment.interview)
+  //   // {student: "Yoon", interviewer: {…}}interviewer: undefinedstudent: "Yoon"__proto__: Object
+  //   // {student: "Archie Cohen", interviewer: {…}}
+  //   // {student: "CHicken", interviewer: {…}}
+  //   // only student name who match with interviewer
+  //   return newAppointment.interview
+  // }
+  // else{
+  //   return undefined
+  // }
 
 
   // for (let id in state.appointments){
@@ -68,7 +106,7 @@ export function getInterview(state, appointmentId) {
   //   newAppointment.interviewer = state.interviewers[number];
   // }
 
-}
+// }
 
 // module.exports = { getAppointmentsForDay, getInterview } 
 
