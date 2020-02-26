@@ -24,7 +24,7 @@ const DELETING = "DELETING";
 
 
 export default function Appointment(props) {
-  console.log('Appointment props', props);
+  // console.log('Appointment props', props);
   // console.log('props.interview.interviewer',props.interview.interviewer);
   
   // console.log('Appointment: ',props.interview);

@@ -55,7 +55,7 @@ export default function useApplicatoinData() {
         console.log(' bookInterview response, ', response);
         dispatch({ type: SET_INTERVIEW, id: id.data, interview: interview.data });
       })
-
+      //???Why id.data??
 
   }
 
@@ -66,7 +66,7 @@ export default function useApplicatoinData() {
       //axios.put(url[, data[, config]]) //interview -> type: should be object
       return Axios.delete(`/api/appointments/${id}`, { interview: null })
       .then((response)=>{
-        console.log('response, ', response);
+        console.log('cancelInterview response, ', response);
       })
 
     }
