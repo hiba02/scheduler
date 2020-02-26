@@ -1,9 +1,9 @@
 //Transforming Data with Selectors: Selectors
 
 export function getAppointmentsForDay(state, day) {
-  console.log('getAppointmentsForDay', state);
+  // console.log('getAppointmentsForDay', state);
   const filteredDay = state.days.find(x => x.name === day);
-  console.log("filteredDay",filteredDay)
+  // console.log("filteredDay",filteredDay)
   if (!filteredDay) {
     return [];
   }
@@ -20,7 +20,7 @@ export function getAppointmentsForDay(state, day) {
 //Thanks for Francis 
 export function getInterview(state, appointmentId) {
   let newAppointment = {...state.appointments[appointmentId]};
-  // console.log('hellooooooo newAppointment', newAppointment)
+  console.log('hellooooooo newAppointment', newAppointment)
   //   {id: 1, time: "12pm", interview: {…}}
         // id: 1
         // interview: {student: "Yoon", interviewer: {…}}
