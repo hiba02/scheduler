@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import "./Application.scss";
 import DayList from "./DayList";
 import Appointment from "./Appointment/index";
 import Axios from "axios";
 import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../helpers/selectors";
-
+import useApplicationData from "../hooks/useApplicationData";
 
 
 
@@ -47,15 +47,27 @@ import { getAppointmentsForDay, getInterview, getInterviewersForDay } from "../h
 
 export default function Application(props) {
 
-  const [state, setState] = useState({
-    day: "Monday",
-    days: [],
-    appointments: {},
-    interviewers: {}
-  });
-  // console.log('state',state);
-  //state {day: "Monday", days: Array(0), appointments: {…}}
-  const setDay = day => setState({ ...state, day });
+
+  const {
+    state,
+    setDay,
+    bookInterview,
+    cancelInterview
+  } = useApplicationData();
+
+
+  // const [state, setState] = useState({
+  //   day: "Monday",
+  //   days: [],
+  //   appointments: {},
+  //   interviewers: {}
+  // });
+  // // console.log('state',state);
+  // //state {day: "Monday", days: Array(0), appointments: {…}}
+  // const setDay = day => {
+  //   console.log('setDay', day)
+  //   return setState({ ...state, day });
+  // };
 
   const appointments = getAppointmentsForDay(state, state.day);
   // console.log("appointments", appointments);
@@ -79,82 +91,82 @@ export default function Application(props) {
 
 
   //W07D3: Creating Appointments
-  function bookInterview(id, interview) {
-    console.log(interview.interviewer)
-    // console.log(id, interview);
+  // function bookInterview(id, interview) {
+  //   console.log(interview.interviewer)
+  //   // console.log(id, interview);
 
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
-    // const appointment = {
-    //   ...state.appointments[id],
-    //   interview: {...interview}
-    // };
+  //   const appointment = {
+  //     ...state.appointments[id],
+  //     interview: { ...interview }
+  //   };
+  //   const appointments = {
+  //     ...state.appointments,
+  //     [id]: appointment
+  //   };
+  //   // const appointment = {
+  //   //   ...state.appointments[id],
+  //   //   interview: {...interview}
+  //   // };
 
-    console.log('bookInterview appointment', appointment);
+  //   console.log('bookInterview appointment', appointment);
     
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]: appointment
-    // };
-    // console.log('bookInterview appointments', appointments);
-    setState({
-      ...state,
-      appointments
-    });
-    // console.log("bookinterview appointment", appointment);
-    // console.log("bookinterview appointments", appointments);
+  //   // const appointments = {
+  //   //   ...state.appointments,
+  //   //   [id]: appointment
+  //   // };
+  //   // console.log('bookInterview appointments', appointments);
+  //   setState({
+  //     ...state,
+  //     appointments
+  //   });
+  //   // console.log("bookinterview appointment", appointment);
+  //   // console.log("bookinterview appointments", appointments);
     
     
-    //axios.put(url[, data[, config]]) //interview -> type: should be object
-    //Need to return entire Axio 
-    return Axios.put(`/api/appointments/${id}`, {interview})
-      .then((response)=>{
-        console.log('response, ', response);
-        // return response;
-      })
-      // .catch((error)=>{
-      //   console.log(error);
-      // })
+  //   //axios.put(url[, data[, config]]) //interview -> type: should be object
+  //   //Need to return entire Axio 
+  //   return Axios.put(`/api/appointments/${id}`, {interview})
+  //     .then((response)=>{
+  //       console.log('response, ', response);
+  //       // return response;
+  //     })
+  //     // .catch((error)=>{
+  //     //   console.log(error);
+  //     // })
 
-      // ??????????????????????????//
-      // transition to them when axios rejects the Promise in our save and destroy functions.
+  //     // ??????????????????????????//
+  //     // transition to them when axios rejects the Promise in our save and destroy functions.
 
 
-  }
+  // }
 
   // use the appointment id to find the right appointment slot and set it's interview data to null.
   // console.log("aaaaaaaaaa", appointments);
-  function cancelInterview (id) {
-  //   if (appointments.interviewers.id === id) {
-  //     // appointments
-  //   }
-  //   console.log('cancelInterview',id);
-    // console.log('cancelInterview, ',id);
-    // console.log('cancelInterview ', appointments);
-    // const appointForDelete = appointments.find(apt => apt.id === id);
-    // console.log('appointForDelete', appointForDelete);
-    // appointForDelete.interview = null;
+  // function cancelInterview (id) {
+  // //   if (appointments.interviewers.id === id) {
+  // //     // appointments
+  // //   }
+  // //   console.log('cancelInterview',id);
+  //   // console.log('cancelInterview, ',id);
+  //   // console.log('cancelInterview ', appointments);
+  //   // const appointForDelete = appointments.find(apt => apt.id === id);
+  //   // console.log('appointForDelete', appointForDelete);
+  //   // appointForDelete.interview = null;
 
-    //axios.put(url[, data[, config]]) //interview -> type: should be object
-    return Axios.delete(`/api/appointments/${id}`, { interview: null })
-    .then((response)=>{
-      console.log('response, ', response);
-    })
-    // .catch((error) => {
-    //   console.log(error);
-    // }
-    // )
+  //   //axios.put(url[, data[, config]]) //interview -> type: should be object
+  //   return Axios.delete(`/api/appointments/${id}`, { interview: null })
+  //   .then((response)=>{
+  //     console.log('response, ', response);
+  //   })
+  //   // .catch((error) => {
+  //   //   console.log(error);
+  //   // }
+  //   // )
 
-        // ??????????????????????????//
-    // transition to them when axios rejects the Promise in our save and destroy functions.
+  //       // ??????????????????????????//
+  //   // transition to them when axios rejects the Promise in our save and destroy functions.
 
-  }
+  // }
 
 
 
@@ -166,23 +178,23 @@ export default function Application(props) {
     
     
   // W07D2: Requesting the Days  
-  useEffect(() => {
-    Promise.all([
-      Axios.get(`/api/days`),
-      Axios.get(`/api/appointments`),
-      Axios.get(`/api/interviewers`)
-    ])
-    .then((response) => {
-      // console.log(response)
-      // setDays(response.data);
-      const [days, appointments, interviewers] = response;
-      // console.log('response', response);
-      // console.log(days.data, appointments.data);
-      //??????????????????????????????????????????????????????//
-      setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
+  // useEffect(() => {
+  //   Promise.all([
+  //     Axios.get(`/api/days`),
+  //     Axios.get(`/api/appointments`),
+  //     Axios.get(`/api/interviewers`)
+  //   ])
+  //   .then((response) => {
+  //     // console.log(response)
+  //     // setDays(response.data);
+  //     const [days, appointments, interviewers] = response;
+  //     // console.log('response', response);
+  //     // console.log(days.data, appointments.data);
+  //     //??????????????????????????????????????????????????????//
+  //     setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
 
-    });
-  },[]);  
+  //   });
+  // },[]);  
 
 
   // const appointments = getAppointmentsForDay(state, day);

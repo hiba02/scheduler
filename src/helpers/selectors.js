@@ -1,6 +1,7 @@
 //Transforming Data with Selectors: Selectors
 
 export function getAppointmentsForDay(state, day) {
+  console.log('getAppointmentsForDay', state);
   const filteredDay = state.days.find(x => x.name === day);
   console.log("filteredDay",filteredDay)
   if (!filteredDay) {

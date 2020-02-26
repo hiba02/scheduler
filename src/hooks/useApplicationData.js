@@ -5,36 +5,33 @@ const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
 
+
+function reducer(state, action) {
+  switch (action.type) {
+    case SET_DAY:
+      return { ...state, day: action.day}
+    case SET_APPLICATION_DATA:
+      return { ...state, days:action.days, appointments:action.appointments, interviewers:action.interviewers }
+    case SET_INTERVIEW: {
+      return /* insert logic */
+    }
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
+  }
+}
+
+
 export default function useApplicatoinData() {
-  
-  const [_, setState] = useState({
+
+  const [state, dispatch] = useReducer(reducer,{
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {}
   });
-
-
-  // const [state, dispatch] = useReducer(reducer,{
-  //   day: "Monday",
-  //   days: [],
-  //   appointments: {},
-  //   interviewers: {}
-  // });
-
-  // //???????????????????????????????????????????????????
-  const setDay = day => setState({ ...state, day });
-
-
-
-
-
-
-
-
-
-
-
+  const setDay = day => dispatch({ type: SET_DAY, day })
 
   function bookInterview(id, interview) {
     // console.log(interview.interviewer)
@@ -48,31 +45,20 @@ export default function useApplicatoinData() {
       ...state.appointments,
       [id]: appointment
     };
-    // const appointment = {
-    //   ...state.appointments[id],
-    //   interview: {...interview}
-    // };
-
-    // console.log('bookInterview appointment', appointment);
-    
-    // const appointments = {
-    //   ...state.appointments,
-    //   [id]: appointment
-    // };
-    // console.log('bookInterview appointments', appointments);
 
 
 
-    setState({
-      ...state,
-      appointments
-    });
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
 
 
 
+    // dispatch({ type: SET_DAY, day });
 
-    // console.log("bookinterview appointment", appointment);
-    // console.log("bookinterview appointments", appointments);
+    // dispatch({ type: SET_INTERVIEW, id, interview });
+    // dispatch({ type: SET_INTERVIEW, id, interview: null });
     
     
     //axios.put(url[, data[, config]]) //interview -> type: should be object
@@ -80,43 +66,22 @@ export default function useApplicatoinData() {
     return Axios.put(`/api/appointments/${id}`, {interview})
       .then((response)=>{
         console.log('response, ', response);
-        // return response;
-      })
-      // .catch((error)=>{
-      //   console.log(error);
-      // })
 
-      // ??????????????????????????//
-      // transition to them when axios rejects the Promise in our save and destroy functions.
+      })
 
 
   }
 
 
   function cancelInterview (id) {
-    //   if (appointments.interviewers.id === id) {
-    //     // appointments
-    //   }
-    //   console.log('cancelInterview',id);
-      // console.log('cancelInterview, ',id);
-      // console.log('cancelInterview ', appointments);
-      // const appointForDelete = appointments.find(apt => apt.id === id);
-      // console.log('appointForDelete', appointForDelete);
-      // appointForDelete.interview = null;
+
   
       //axios.put(url[, data[, config]]) //interview -> type: should be object
       return Axios.delete(`/api/appointments/${id}`, { interview: null })
       .then((response)=>{
         console.log('response, ', response);
       })
-      // .catch((error) => {
-      //   console.log(error);
-      // }
-      // )
-  
-          // ??????????????????????????//
-      // transition to them when axios rejects the Promise in our save and destroy functions.
-  
+
     }
 
     useEffect(() => {
@@ -126,15 +91,12 @@ export default function useApplicatoinData() {
         Axios.get(`/api/interviewers`)
       ])
       .then((response) => {
-        // console.log(response)
-        // setDays(response.data);
-        const [days, appointments, interviewers] = response;
 
-        // console.log('response', response);
-        // console.log(days.data, appointments.data);
-        //??????????????????????????????????????????????????????//
-        
-        setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
+        const [days, appointments, interviewers] = response;
+        dispatch({ type: SET_APPLICATION_DATA, days: days.data, appointments: appointments.data, interviewers: interviewers.data });
+
+        //????
+        // setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
   
       });
     },[]);  
