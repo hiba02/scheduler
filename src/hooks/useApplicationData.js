@@ -86,7 +86,7 @@ export default function useApplicatoinData() {
       // setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
 
     });
-  },[]);  
+  },[state.days]);  
   
 
   return { state, setDay, bookInterview, cancelInterview };
