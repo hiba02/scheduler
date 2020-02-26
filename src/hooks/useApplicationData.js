@@ -13,7 +13,8 @@ function reducer(state, action) {
     case SET_APPLICATION_DATA:
       return { ...state, days:action.days, appointments:action.appointments, interviewers:action.interviewers }
     case SET_INTERVIEW: 
-      return { ...state, id:action.id, interviewe:action.interview }
+      console.log("setInterview", state)  
+    return { ...state, id:action.id, interview:action.interview }
     
     default:
       throw new Error(
@@ -70,22 +71,22 @@ export default function useApplicatoinData() {
 
     }
 
-    useEffect(() => {
-      Promise.all([
-        Axios.get(`/api/days`),
-        Axios.get(`/api/appointments`),
-        Axios.get(`/api/interviewers`)
-      ])
-      .then((response) => {
+  useEffect(() => {
+    Promise.all([
+      Axios.get(`/api/days`),
+      Axios.get(`/api/appointments`),
+      Axios.get(`/api/interviewers`)
+    ])
+    .then((response) => {
+      // *** I should use object.data to receive the response from Axios 
+      const [days, appointments, interviewers] = response;
+      dispatch({ type: SET_APPLICATION_DATA, days: days.data, appointments: appointments.data, interviewers: interviewers.data });
 
-        const [days, appointments, interviewers] = response;
-        dispatch({ type: SET_APPLICATION_DATA, days: days.data, appointments: appointments.data, interviewers: interviewers.data });
+      //????
+      // setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
 
-        //????
-        // setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
-  
-      });
-    },[]);  
+    });
+  },[]);  
   
 
   return { state, setDay, bookInterview, cancelInterview };
