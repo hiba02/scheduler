@@ -12,9 +12,9 @@ function reducer(state, action) {
       return { ...state, day: action.day}
     case SET_APPLICATION_DATA:
       return { ...state, days:action.days, appointments:action.appointments, interviewers:action.interviewers }
-    case SET_INTERVIEW: {
-      return /* insert logic */
-    }
+    case SET_INTERVIEW: 
+      return { ...state, id:action.id, interviewe:action.interview }
+    
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -46,27 +46,13 @@ export default function useApplicatoinData() {
       [id]: appointment
     };
 
-
-
-    // setState({
-    //   ...state,
-    //   appointments
-    // });
-
-
-
-    // dispatch({ type: SET_DAY, day });
-
-    // dispatch({ type: SET_INTERVIEW, id, interview });
-    // dispatch({ type: SET_INTERVIEW, id, interview: null });
-    
     
     //axios.put(url[, data[, config]]) //interview -> type: should be object
     //Need to return entire Axio 
     return Axios.put(`/api/appointments/${id}`, {interview})
       .then((response)=>{
-        console.log('response, ', response);
-
+        console.log(' bookInterview response, ', response);
+        dispatch({ type: SET_INTERVIEW, id: id.data, interview: interview.data });
       })
 
 
