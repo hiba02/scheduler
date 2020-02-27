@@ -24,10 +24,10 @@ export default function Form(props) {
             value={name}
             type="text"
             onChange={(event) => setName(event.target.value)}
-            placeholder="Student Name"
+            placeholder="Enter Student Name"
             onSubmit={event => event.preventDefault()}
-
-
+            name="name"
+            data-testid="student-name-input"
             // onSave={()=>{props.onSave(name, interviewer)}}
 
 
