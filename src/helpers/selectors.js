@@ -120,13 +120,38 @@ export function getInterviewersForDay(state, day) {
   if (!filteredDay) {
     return [];
   }
-
-  const interviewersForDay = filteredDay.interviewers;
+  // console.log("getInterviewersForDay filteredDay", filteredDay);
+  // { id: 1, name: 'Monday', appointments: [ 1, 2, 3 ] }
+  const appointmentIdsForDay = filteredDay.appointments;
+  // const appointmentIdsForDay = filteredDay.appointments;
+  console.log("appointmentIdsForDay",appointmentIdsForDay);
+  console.log("state.interviewers", state.interviewers);
+  
   let resultArray = [];
-  for (let id of interviewersForDay) {
-    resultArray.push(state.interviewers[id]);
+  for (let id of appointmentIdsForDay) {
+    if(state.appointments[id].interview){
+      let interviewerId = state.appointments[id].interview.interviewer
+      resultArray.push(state.interviewers[interviewerId]);
+    }
   }
+  // console.log("resultArray",resultArray);
   // console.log("getInterviewersForDay",resultArray)
   return resultArray;
 
 }
+
+/*
+    console.log src/helpers/selectors.js:127
+      interviewersForDay [ 4, 5 ]
+    console.log src/helpers/selectors.js:128
+      state.interviewers { 
+        '1':
+         { id: 1,
+           name: 'Sylvia Palmer',
+           avatar: 'https://i.imgur.com/LpaY82x.png' },
+        '2':
+         { id: 2,
+           name: 'Tori Malcolm',
+           avatar: 'https://i.imgur.com/Nmx0Qxo.png' } }
+
+*/
