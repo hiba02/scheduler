@@ -56,117 +56,14 @@ export default function Application(props) {
   } = useApplicationData();
 
 
-  // const [state, setState] = useState({
-  //   day: "Monday",
-  //   days: [],
-  //   appointments: {},
-  //   interviewers: {}
-  // });
-  // // console.log('state',state);
-  // //state {day: "Monday", days: Array(0), appointments: {…}}
-  // const setDay = day => {
-  //   console.log('setDay', day)
-  //   return setState({ ...state, day });
-  // };
+
 
   const appointments = getAppointmentsForDay(state, state.day);
-  // console.log("appointments", appointments);
-  // 0: {id: 1, time: "12pm", interview: null}
-  // 1: {id: 2, time: "1pm", interview: null}
-  // 2: {id: 3, time: "2pm", interview: null}
-  // 3: {id: 4, time: "3pm", interview: null}
-  // 4:
-  // id: 5
-  // interview: {student: "Archie Cohen", interviewer: 7}
-  // time: "4pm"
+  // console.log('appointments', appointments);  
 
   const interviewers = getInterviewersForDay(state, state.day)
-  // console.log("interviewrs", interviewers);
-  // 0: {id: 4, name: "Cohana Roy", avatar: "https://i.imgur.com/FK8V841.jpg"}
-  // 1: {id: 7, name: "Alec Quon", avatar: "https://i.imgur.com/3tVgsra.jpg"}
-  // 2: {id: 8, name: "Viktor Jain", avatar: "https://i.imgur.com/iHq8K8Z.jpg"}
-  // 3: {id: 9, name: "Lindsay Chu", avatar: "https://i.imgur.com/nPywAp1.jpg"}
-  // 4: {id: 10, name: "Samantha Stanic", avatar: "https://i.imgur.com/okB9WKC.jpg"}
-
-
-
-  //W07D3: Creating Appointments
-  // function bookInterview(id, interview) {
-  //   console.log(interview.interviewer)
-  //   // console.log(id, interview);
-
-  //   const appointment = {
-  //     ...state.appointments[id],
-  //     interview: { ...interview }
-  //   };
-  //   const appointments = {
-  //     ...state.appointments,
-  //     [id]: appointment
-  //   };
-  //   // const appointment = {
-  //   //   ...state.appointments[id],
-  //   //   interview: {...interview}
-  //   // };
-
-  //   console.log('bookInterview appointment', appointment);
-    
-  //   // const appointments = {
-  //   //   ...state.appointments,
-  //   //   [id]: appointment
-  //   // };
-  //   // console.log('bookInterview appointments', appointments);
-  //   setState({
-  //     ...state,
-  //     appointments
-  //   });
-  //   // console.log("bookinterview appointment", appointment);
-  //   // console.log("bookinterview appointments", appointments);
-    
-    
-  //   //axios.put(url[, data[, config]]) //interview -> type: should be object
-  //   //Need to return entire Axio 
-  //   return Axios.put(`/api/appointments/${id}`, {interview})
-  //     .then((response)=>{
-  //       console.log('response, ', response);
-  //       // return response;
-  //     })
-  //     // .catch((error)=>{
-  //     //   console.log(error);
-  //     // })
-
-  //     // ??????????????????????????//
-  //     // transition to them when axios rejects the Promise in our save and destroy functions.
-
-
-  // }
-
-  // use the appointment id to find the right appointment slot and set it's interview data to null.
-  // console.log("aaaaaaaaaa", appointments);
-  // function cancelInterview (id) {
-  // //   if (appointments.interviewers.id === id) {
-  // //     // appointments
-  // //   }
-  // //   console.log('cancelInterview',id);
-  //   // console.log('cancelInterview, ',id);
-  //   // console.log('cancelInterview ', appointments);
-  //   // const appointForDelete = appointments.find(apt => apt.id === id);
-  //   // console.log('appointForDelete', appointForDelete);
-  //   // appointForDelete.interview = null;
-
-  //   //axios.put(url[, data[, config]]) //interview -> type: should be object
-  //   return Axios.delete(`/api/appointments/${id}`, { interview: null })
-  //   .then((response)=>{
-  //     console.log('response, ', response);
-  //   })
-  //   // .catch((error) => {
-  //   //   console.log(error);
-  //   // }
-  //   // )
-
-  //       // ??????????????????????????//
-  //   // transition to them when axios rejects the Promise in our save and destroy functions.
-
-  // }
+  // console.log('interviewers', interviewers);
+  
 
 
 
@@ -177,32 +74,13 @@ export default function Application(props) {
     interview={appointment.interview} />)
     
     
-  // W07D2: Requesting the Days  
-  // useEffect(() => {
-  //   Promise.all([
-  //     Axios.get(`/api/days`),
-  //     Axios.get(`/api/appointments`),
-  //     Axios.get(`/api/interviewers`)
-  //   ])
-  //   .then((response) => {
-  //     // console.log(response)
-  //     // setDays(response.data);
-  //     const [days, appointments, interviewers] = response;
-  //     // console.log('response', response);
-  //     // console.log(days.data, appointments.data);
-  //     //??????????????????????????????????????????????????????//
-  //     setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
-
-  //   });
-  // },[]);  
 
 
-  // const appointments = getAppointmentsForDay(state, day);
+
 
   const schedule = appointments.map((appointment) => {
     const interview = getInterview(state, appointment.id);
-    // console.log('yoiooooo', appointment, interview)
-    // console.log('yoiooooo', interview)
+
 
     return (
       <Appointment

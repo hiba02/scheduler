@@ -80,14 +80,15 @@ export default function useApplicatoinData() {
     .then((response) => {
       // *** I should use object.data to receive the response from axios 
       const [days, appointments, interviewers] = response;
+      console.log("useEffect",response)
       dispatch({ type: SET_APPLICATION_DATA, days: days.data, appointments: appointments.data, interviewers: interviewers.data });
 
       //????
       // setState(prevState => ({ ...prevState, days: days.data, appointments:appointments.data, interviewers:interviewers.data}));
 
     });
-  },[state.days]);  
-  
+  // },[state.days]);  
+},[]);  
 
   return { state, setDay, bookInterview, cancelInterview };
 }

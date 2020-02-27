@@ -10,12 +10,15 @@ import PropTypes from 'prop-types';
 
 //Taken from Listing Interviewers II
 export default function InterviewerList(props) {
-  // console.log(props)
+  console.log(props)
 
+
+  ///??? Where is come from?
   InterviewerList.propTypes = {
     value: PropTypes.number,
     onChange: PropTypes.func.isRequired
   };
+
   const interviewers = props.interviewers.map(interviewer => {
     return (
       <InterviewerListItem
@@ -29,7 +32,7 @@ export default function InterviewerList(props) {
   });
 
   return (<section className="interviewers">
-  <h4 className="interviewers__header text--light">interviewers</h4>
-  <ul className="interviewers__list">{interviewers}</ul>
-  </section>);
+            <h4 className="interviewers__header text--light">interviewers</h4>
+            <ul className="interviewers__list">{interviewers}</ul>
+          </section>);
 } 
