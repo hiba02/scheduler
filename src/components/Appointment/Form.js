@@ -8,13 +8,36 @@ import InterviewerList from "components/InterviewerList"
 export default function Form(props) {
   // console.log('inside Form', props);
   const [name, setName] = useState(props.name || "");
+  
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
+  
+  const [error, setError] = useState("");
   // console.log('inside From componet name, interviewer:', name, interviewer);
   // console.log('props.onSave', props.onSave); 
   function reset() {
     setName("");
     setInterviewer(null);
   }
+  // function validate() {
+  //   if (name === "") {
+  //     setError("Student name cannot be blank");
+  //     return;
+  //   }
+  
+  //   props.onSave(name, interviewer);
+  // }
+  function validate() {
+    if (name === "") {
+      setError("Student name cannot be blank");
+      return;
+    }
+  
+    setError("");
+    props.onSave(name, interviewer);
+  }
+
+
+  console.log("error: ",  error);
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -37,6 +60,7 @@ export default function Form(props) {
           />
         </form>
         {/* value={5} onChange={()=>{}} */}
+        <section className="appointment__validation">{error}</section>
         <InterviewerList interviewers={props.interviewers} interviewer={interviewer} setInterviewer={setInterviewer} />
       </section>
       <section className="appointment__card-right">
