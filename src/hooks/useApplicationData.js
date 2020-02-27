@@ -1,5 +1,5 @@
 import { useState, useEffect, useReducer } from 'react';
-import Axios from "axios";
+import axios from "axios";
 
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
@@ -50,7 +50,7 @@ export default function useApplicatoinData() {
     
     //axios.put(url[, data[, config]]) //interview -> type: should be object
     //Need to return entire Axio 
-    return Axios.put(`/api/appointments/${id}`, {interview})
+    return axios.put(`/api/appointments/${id}`, {interview})
       .then((response)=>{
         console.log(' bookInterview response, ', response);
         dispatch({ type: SET_INTERVIEW, id: id.data, interview: interview.data });
@@ -64,7 +64,7 @@ export default function useApplicatoinData() {
 
   
       //axios.put(url[, data[, config]]) //interview -> type: should be object
-      return Axios.delete(`/api/appointments/${id}`, { interview: null })
+      return axios.delete(`/api/appointments/${id}`, { interview: null })
       .then((response)=>{
         console.log('cancelInterview response, ', response);
       })
@@ -73,12 +73,12 @@ export default function useApplicatoinData() {
 
   useEffect(() => {
     Promise.all([
-      Axios.get(`/api/days`),
-      Axios.get(`/api/appointments`),
-      Axios.get(`/api/interviewers`)
+      axios.get(`/api/days`),
+      axios.get(`/api/appointments`),
+      axios.get(`/api/interviewers`)
     ])
     .then((response) => {
-      // *** I should use object.data to receive the response from Axios 
+      // *** I should use object.data to receive the response from axios 
       const [days, appointments, interviewers] = response;
       dispatch({ type: SET_APPLICATION_DATA, days: days.data, appointments: appointments.data, interviewers: interviewers.data });
 
