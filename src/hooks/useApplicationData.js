@@ -4,6 +4,7 @@ import axios from "axios";
 const SET_DAY = "SET_DAY";
 const SET_APPLICATION_DATA = "SET_APPLICATION_DATA";
 const SET_INTERVIEW = "SET_INTERVIEW";
+const SET_APPOINTMENTS = "SET_APPOINTMENTS";
 
 
 function reducer(state, action) {
@@ -15,7 +16,8 @@ function reducer(state, action) {
     case SET_INTERVIEW: 
       console.log("setInterview", state)  
     return { ...state, id:action.id, interview:action.interview }
-    
+    case SET_APPOINTMENTS:
+      return { ...state, appointments:action.appointments }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -35,26 +37,22 @@ export default function useApplicatoinData() {
   const setDay = day => dispatch({ type: SET_DAY, day })
 
   function bookInterview(id, interview) {
-    // console.log(interview.interviewer)
-    // console.log(id, interview);
 
-    const appointment = {
-      ...state.appointments[id],
-      interview: { ...interview }
-    };
-    const appointments = {
-      ...state.appointments,
-      [id]: appointment
-    };
+    const appointments = state.appointments;
+    const appointment = appointments[id];
 
+    appointment.interview = interview;
+
+    appointments[id] = appointment;
     
+
     //axios.put(url[, data[, config]]) //interview -> type: should be object
     //Need to return entire Axio 
     return axios.put(`/api/appointments/${id}`, {interview})
-      .then((response)=>{
-        console.log(' bookInterview response, ', response);
-        dispatch({ type: SET_INTERVIEW, id: id.data, interview: interview.data });
+      .then((response) => {
+        dispatch({ type: SET_APPOINTMENTS, appointments: appointments })
       })
+      .catch((err)=>console.log(err));
       //???Why id.data??
 
   }
@@ -66,7 +64,7 @@ export default function useApplicatoinData() {
       //axios.put(url[, data[, config]]) //interview -> type: should be object
       return axios.delete(`/api/appointments/${id}`, { interview: null })
       .then((response)=>{
-        console.log('cancelInterview response, ', response);
+        // console.log('cancelInterview response, ', response);
       })
 
     }
@@ -80,7 +78,7 @@ export default function useApplicatoinData() {
     .then((response) => {
       // *** I should use object.data to receive the response from axios 
       const [days, appointments, interviewers] = response;
-      console.log("useEffect",response)
+      // console.log("useEffect",response)
       dispatch({ type: SET_APPLICATION_DATA, days: days.data, appointments: appointments.data, interviewers: interviewers.data });
 
       //????

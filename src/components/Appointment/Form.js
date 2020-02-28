@@ -6,33 +6,32 @@ import InterviewerList from "components/InterviewerList"
 // import { interviewer } from "../../../stories/index.js";
 
 export default function Form(props) {
-  // console.log('inside Form', props);
   const [name, setName] = useState(props.name || "");
-  
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  
   const [error, setError] = useState("");
-  // console.log('inside From componet name, interviewer:', name, interviewer);
-  // console.log('props.onSave', props.onSave); 
+
+  console.log("Form props.interviewer", props.interviewer)
+  // interviewer is interviewer.id as number  ex) 1 
+
   function reset() {
     setName("");
     setInterviewer(null);
   }
-  // function validate() {
-  //   if (name === "") {
-  //     setError("Student name cannot be blank");
-  //     return;
-  //   }
-  
-  //   props.onSave(name, interviewer);
-  // }
+
   function validate() {
+    
     if (name === "") {
       setError("Student name cannot be blank");
       return;
     }
+
+    if (interviewer === null) {
+      setError("Interviewer cannot be blank");
+      return;
+    }
   
     setError("");
+
     props.onSave(name, interviewer);
   }
 
@@ -41,7 +40,7 @@ export default function Form(props) {
     props.onCancel();
   }
 
-  console.log("error: ",  error);
+
   return (
     <main className="appointment__card appointment__card--create">
       <section className="appointment__card-left">
@@ -55,15 +54,8 @@ export default function Form(props) {
             onSubmit={event => event.preventDefault()}
             name="name"
             data-testid="student-name-input"
-            // onSave={()=>{props.onSave(name, interviewer)}}
-
-
-            /*
-              This must be a controlled component
-            */
           />
         </form>
-        {/* value={5} onChange={()=>{}} */}
         <section className="appointment__validation">{error}</section>
         <InterviewerList interviewers={props.interviewers} interviewer={interviewer} setInterviewer={setInterviewer} />
       </section>
@@ -71,8 +63,6 @@ export default function Form(props) {
         <section className="appointment__actions">
           <Button danger onClick={cancel}>Cancel</Button>
           <Button confirm onClick={() => validate()}>Save</Button>
-
-          {/* <Button confirm onClick={(event) => props.onSave(name, interviewer)}>Save</Button> */}
         </section>
       </section>
     </main>

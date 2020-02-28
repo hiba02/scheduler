@@ -26,9 +26,9 @@ export default function DayListItem(props) {
   // TOFIX: onClick={() => setDay(props.setDay)
   return (
     // <li onClick={() => setDay(props.setDay)}>
-    <li onClick={() => props.setDay(props.name)}>
-      <h2 className={dayClass}>{props.name}</h2>
-      <h3 className={dayClass}>{newPropSpots}</h3>
+    <li className={dayClass} onClick={() => props.setDay(props.name)}>
+      <h2 >{props.name}</h2>
+      <h3>{newPropSpots}</h3>
       {/* <h3 className={dayClass}>{props.spots}</h3> */}
     </li>
   );

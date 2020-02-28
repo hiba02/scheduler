@@ -12,18 +12,21 @@ export function getAppointmentsForDay(state, day) {
   for (let id of appointmentsOfTheDay) {
     resultArray.push(state.appointments[id]);
   }
-  // console.log("getappointmentsforday",resultArray)
   return resultArray;
 
 }
-//????????????????????????????????????????????????????????????
+
+
 //Thanks for Francis 
 export function getInterview(state, interviewObject) {
+
   if(interviewObject === null){
     return null
   }
   const newInterview = {student: interviewObject.student}
+  
   const interviewerId = interviewObject.interviewer
+
 
   newInterview.interviewer = state.interviewers[interviewerId]
   return newInterview
@@ -31,84 +34,6 @@ export function getInterview(state, interviewObject) {
 }
 
 
-  // what u want to return, example:
-  // (state, interview = {  
-//   "student": "Lydia Miller-Jones",
-//   "interviewer": 1 })
-//  =>
-  // {  
-//   "student": "Lydia Miller-Jones",
-//   "interviewer": {  
-//     "id": 1,
-//     "name": "Sylvia Palmer",
-//     "avatar": "https://i.imgur.com/LpaY82x.png"
-//   }
-// }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  //   {id: 1, time: "12pm", interview: {…}}
-        // id: 1
-        // interview: {student: "Yoon", interviewer: {…}}
-        // time: "12pm"
-        // {id: 2, time: "1pm", interview: {…}}
-        // {id: 3, time: "2pm", interview: {…}}
-        // {id: 4, time: "3pm", interview: {…}}
-        // {id: 5, time: "4pm", interview: null}
-        // ......
-
-
-  // // console.log(state.appointments);
-  // // console.log('state.appointments.interview',state.appointments["3"].interview);
-  // if (!newAppointment.interview){
-  //   return null;
-  // }
-  // const interviewerId = newAppointment.interview.interviewer
-  // // console.log('newAppointment.interview.interviewer',newAppointment.interview.interviewer);
-  // // console.log('interviewerId', interviewerId); //3, 5, 5, 7
-  // newAppointment.interview.interviewer = state.interviewers[interviewerId]
-
-  // if(interviewerId){
-  //   // console.log('inside if',newAppointment.interview)
-  //   // {student: "Yoon", interviewer: {…}}interviewer: undefinedstudent: "Yoon"__proto__: Object
-  //   // {student: "Archie Cohen", interviewer: {…}}
-  //   // {student: "CHicken", interviewer: {…}}
-  //   // only student name who match with interviewer
-  //   return newAppointment.interview
-  // }
-  // else{
-  //   return undefined
-  // }
-
-
-  // for (let id in state.appointments){
-  //   if (state.appointments[id].interview) {
-  //     // console.log(state.appointments[id].interview.student);
-  //     newAppointment.student=state.appointments[id].interview.student;
-  //     // newAppointment.interviewer=state.interviewers
-  //   }
-
-  // }
-
-  // for (let number in state.interviewers) {
-  //   newAppointment.interviewer = state.interviewers[number];
-  // }
-
-// }
-
-// module.exports = { getAppointmentsForDay, getInterview } 
 
 
 
@@ -116,8 +41,9 @@ export function getInterviewersForDay(state, day) {
 
   // This take `state.days` which is an array and then
   // find `day` === `state.days.name`, where `day` comes from
-  // parameter `day`.
+  // parameter `day`. filteredDay = object
   const filteredDay = state.days.find(x => x.name === day);
+  
   if (!filteredDay) {
     return [];
   }
@@ -134,18 +60,3 @@ export function getInterviewersForDay(state, day) {
 
 }
 
-/*
-    console.log src/helpers/selectors.js:127
-      interviewersForDay [ 4, 5 ]
-    console.log src/helpers/selectors.js:128
-      state.interviewers { 
-        '1':
-         { id: 1,
-           name: 'Sylvia Palmer',
-           avatar: 'https://i.imgur.com/LpaY82x.png' },
-        '2':
-         { id: 2,
-           name: 'Tori Malcolm',
-           avatar: 'https://i.imgur.com/Nmx0Qxo.png' } }
-
-*/

@@ -35,18 +35,18 @@ export default function Appointment(props) {
     props.interview ? SHOW : EMPTY
   );
   // console.log('mode', mode);
-  // console.log('props', props);
+  console.log('Appointment props', props);
   // console.log('props.bookInterview, props.interviewer.id', props.bookInterview);  
 
   
   
   //W07D3: Creating Appointments
+  // save(student's name, interviewer's id) ex) save("nick", 5)
   function save(name, interviewer) {
-    console.log("inside save", name, interviewer)
     
     const interview = {
       student: name,
-      interviewer
+      interviewer: interviewer.id || interviewer 
     };
 
     transition(SAVING);
@@ -54,23 +54,11 @@ export default function Appointment(props) {
     props.bookInterview(props.id, interview)
          .then(() => transition(SHOW))
          .catch(error => transition(ERROR_SAVE));
+         
     transition(SHOW);
   }  
 
-  //error
-  // function save(name, interviewer) {
-  //   const interview = {
-  //     student: name,
-  //     interviewer
-  //   };
-  
-  //   transition(SAVING);
-  
-  //   props
-  //     .bookInterview(props.id, interview)
-  //     .then(() => transition(SHOW))
-  //     .catch(error => transition(ERROR_SAVE, true));
-  // }
+
 
 
   function deleteInterview (id) {
@@ -125,7 +113,7 @@ export default function Appointment(props) {
                                     onCancelDelete={()=> back()}
                                                           />}
 
-      {mode === EDIT && <Form onSave={save} interviewer={props.interview.interviewer} name={props.interview.student} interviewers={props.interviewers} onCancel={()=> back()}/> }
+      {mode === EDIT && <Form onSave={save} interviewer={props.interview.interviewer.id} name={props.interview.student} interviewers={props.interviewers} onCancel={()=> back()}/> }
       {/* ???????????? not working with back() */}
       {mode === ERROR_SAVE && <Error onClose={() => back()}/>}    
       {mode === ERROR_DELETE && <Error onClose={() => back()}/>}                                                  

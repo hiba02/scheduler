@@ -8,42 +8,7 @@ import useApplicationData from "../hooks/useApplicationData";
 
 
 
-// const appointments = [
-//   {
-//     id: 1,
-//     time: "12pm",
-//   },
-//   {
-//     id: 2,
-//     time: "1pm",
-//     interview: {
-//       student: "Lydia Miller-Jones",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   }
-// ];
 
-// const days = [
-//   {
-//     id: 1,
-//     name: "Monday",
-//     spots: 2,
-//   },
-//   {
-//     id: 2,
-//     name: "Tuesday",
-//     spots: 5,
-//   },
-//   {
-//     id: 3,
-//     name: "Wednesday",
-//     spots: 0,
-//   },
-// ];
 
 export default function Application(props) {
 
@@ -79,8 +44,8 @@ export default function Application(props) {
 
 
   const schedule = appointments.map((appointment) => {
-    const interview = getInterview(state, appointment.id);
 
+    const interview = getInterview(state, appointment.interview);
 
     return (
       <Appointment
